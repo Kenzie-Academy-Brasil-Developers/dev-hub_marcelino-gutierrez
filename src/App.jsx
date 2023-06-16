@@ -1,7 +1,7 @@
 import { RoutesMain } from "./routes/RoutesMain";
 function App() {
   return (
-    <div className="bg-base-300 backdrop-blur-sm">
+    <div className="bg-base-300 overflow-hidden">
       <RoutesMain />
     </div>
   );
