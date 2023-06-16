@@ -197,7 +197,7 @@ export function SignUp() {
                 errors.contact?.message
                   ? "border-error focus:border-error"
                   : "focus:border-white"
-              } focus:outline-none transition-all duration-300 bg-base-100`}
+              } number-input focus:outline-none transition-all duration-300 bg-base-100`}
             />
             <span
               className={`${
