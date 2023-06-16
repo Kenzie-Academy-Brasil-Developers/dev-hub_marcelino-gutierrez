@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*.]).{8,}$/;
 const courseModuleOptions = [
   "Primeiro módulo (Introdução ao Frontend)",
   "Segundo módulo (Frontend Avançado)",
