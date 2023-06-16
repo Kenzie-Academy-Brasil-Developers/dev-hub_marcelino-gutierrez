@@ -1,7 +1,7 @@
 import { Navbar } from "../components/Navbar";
 import { LOCAL_STORAGE_KEY } from "./Home";
 import { useEffect, useState, useRef } from "react";
-import { api, delay } from "./SignUp";
+import { api } from "./SignUp";
 import { ToastContainer, toast } from "react-toastify";
 
 export function Dashboard() {
