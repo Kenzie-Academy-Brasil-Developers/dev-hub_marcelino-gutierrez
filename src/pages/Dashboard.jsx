@@ -2,7 +2,7 @@ import { Navbar } from "../components/Navbar";
 import { LOCAL_STORAGE_KEY } from "./Home";
 import { useEffect, useState, useRef } from "react";
 import { api } from "./SignUp";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export function Dashboard() {
   useEffect(() => {
@@ -37,18 +37,6 @@ export function Dashboard() {
         className="loading loading-spinner loading-lg text-primary fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2"
       ></span>
       <div ref={loadingContainer} className="min-h-screen blur-sm">
-        <ToastContainer
-          position="top-right"
-          autoClose={2800}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
         <Navbar />
         <section className="border-b border-b-stone-800 py-10">
           <div className="w-1/2 mx-auto flex justify-between">

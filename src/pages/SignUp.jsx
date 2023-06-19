@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema } from "../schema/signUpSchema";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
@@ -52,18 +52,6 @@ export function SignUp() {
 
   return (
     <div className="w-5/6 py-10 pb-20 sm:w-[50%] lg:w-[35%] xl:w-[25%] relative min-h-screen bg-base-20 mx-auto flex flex-col gap-5 justify-center items-center">
-      <ToastContainer
-        position="top-right"
-        autoClose={2800}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
       <div className=" flex items-center justify-between w-full">
         <h1 className="text-primary font-bold text-2xl">Kenzie Hub</h1>
         <Link to="/" className="btn text-primary-content normal-case">
