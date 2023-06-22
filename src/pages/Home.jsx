@@ -1,17 +1,18 @@
 import { useRef, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "./SignUp.jsx";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { delay } from "./SignUp.jsx";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../schema/loginSchema";
 
-export const LOCAL_STORAGE_KEY = "@kenziehub_marcelino-gutierrez";
+export const TOKEN_STORAGE_KEY = "@kenziehub_token";
+export const USER_STORAGE_KEY = "@kenziehub_user";
 
 export function Home() {
   useEffect(() => {
-    localStorage.getItem(LOCAL_STORAGE_KEY) ? navigate("/dashboard") : "";
+    localStorage.getItem(TOKEN_STORAGE_KEY) ? navigate("/dashboard") : "";
 
     (async () => {
       await delay(100);
@@ -19,23 +20,24 @@ export function Home() {
     })();
   }, []);
 
+  const [isLoading, setLoading] = useState(false);
+
   const loading = useRef();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
 
   const submit = async (formData) => {
     try {
-      const response = await api.post("/sessions", formData);
+      const { data } = await api.post("/sessions", formData);
+      localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(data.token));
       toast.success("Login realizado com sucesso");
-      const { data } = response;
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+      setLoading(true);
       await delay(3200);
       navigate("/dashboard");
     } catch (e) {
@@ -47,18 +49,6 @@ export function Home() {
 
   return (
     <div className="w-5/6 sm:w-[50%] lg:w-[35%] xl:w-[25%] relative min-h-screen bg-base-20 mx-auto flex flex-col gap-5 justify-center items-center">
-      <ToastContainer
-        position="top-right"
-        autoClose={2800}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
       <h1 className="text-primary font-bold text-2xl">Kenzie Hub</h1>
       <div
         ref={loading}
@@ -108,8 +98,14 @@ export function Home() {
               {errors.password?.message}
             </span>
           </div>
-          <button className="btn btn-primary text-primary-content normal-case">
-            Entrar
+          <button
+            disabled={isLoading}
+            className="btn btn-primary text-primary-content normal-case"
+          >
+            <span
+              className={`${isLoading ? "" : "hidden"} loading text-sm`}
+            ></span>
+            {isLoading ? "Entrando" : "Entrar"}
           </button>
         </form>
         <div className="flex flex-col gap-7">

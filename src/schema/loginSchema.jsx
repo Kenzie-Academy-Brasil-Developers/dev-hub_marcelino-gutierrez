@@ -1,13 +1,5 @@
 import { z } from "zod";
 
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
-const courseModuleOptions = [
-  "Primeiro módulo (Introdução ao Frontend)",
-  "Segundo módulo (Frontend Avançado)",
-  "Terceiro módulo (Introdução ao Backend)",
-  "Quarto módulo (Backend Avançado)",
-];
-
 export const loginSchema = z.object({
   email: z
     .string()
