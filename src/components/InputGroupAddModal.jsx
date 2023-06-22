@@ -18,9 +18,9 @@ export function InputGroupAddModal() {
       status: techStatus,
     };
 
-    try {
-      const accessToken = JSON.parse(localStorage.getItem(TOKEN_STORAGE_KEY));
-      const fetchData = async () => {
+    const accessToken = JSON.parse(localStorage.getItem(TOKEN_STORAGE_KEY));
+    const fetchData = async () => {
+      try {
         await api.post("/users/techs", formData, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -28,21 +28,25 @@ export function InputGroupAddModal() {
         });
         toast.success("Tecnologia adicionada com sucesso!");
         setAddModal((prevState) => !prevState);
-      };
-      fetchData();
-    } catch (e) {
-      toast.error(e.response.data.message);
-    }
+      } catch (e) {
+        toast.error(e.response.data.message[0]);
+      }
+    };
+
+    fetchData();
   }
 
   return (
-    <form onSubmit={formSubmit} className="pt-12 flex flex-col gap-5 w-96">
+    <form
+      noValidate
+      onSubmit={formSubmit}
+      className="pt-12 flex flex-col gap-5 w-96"
+    >
       <div className="form-control w-full">
         <label className="label">
           <span className="label-text">Nome</span>
         </label>
         <input
-          required
           type="text"
           name="title"
           placeholder="TypeScript"
@@ -54,7 +58,6 @@ export function InputGroupAddModal() {
           <span className="label-text">Selecionar Status</span>
         </label>
         <select
-          required
           type="text"
           name="status"
           placeholder="Type here"
