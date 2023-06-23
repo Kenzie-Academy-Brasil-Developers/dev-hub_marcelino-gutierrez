@@ -5,12 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema } from "../schema/signUpSchema";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-
-export const api = axios.create({
-  baseURL: "https://kenziehub.herokuapp.com/",
-  timeout: 8000,
-});
+import { api } from "../services/axios";
 
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

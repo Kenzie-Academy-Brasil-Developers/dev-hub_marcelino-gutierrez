@@ -1,11 +1,11 @@
-import { api } from "../pages/SignUp";
+import { api } from "../services/axios";
 import { useContext } from "react";
-import { UserContext } from "../routes/RoutesMain";
+import { TechContext } from "../context/TechContext";
 import { TOKEN_STORAGE_KEY } from "../pages/Home";
 import { toast } from "react-toastify";
 
 export function InputGroupAddModal() {
-  const { setAddModal } = useContext(UserContext);
+  const { setAddModal } = useContext(TechContext);
 
   function formSubmit(e) {
     e.preventDefault();
@@ -40,7 +40,7 @@ export function InputGroupAddModal() {
     <form
       noValidate
       onSubmit={formSubmit}
-      className="pt-12 flex flex-col gap-5 w-96"
+      className="pt-12 flex flex-col gap-5 w-full sm:w-96"
     >
       <div className="form-control w-full">
         <label className="label">

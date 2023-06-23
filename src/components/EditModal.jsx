@@ -1,15 +1,13 @@
 import { useContext, useState, useEffect } from "react";
-import { UserContext } from "../routes/RoutesMain";
+import { TechContext } from "../context/TechContext";
+import { UserContext } from "../context/UserContext";
 import { InputGroupEditModal } from "./InputGroupEditModal";
 
 export function EditModal() {
-  const {
-    isEditModalOpen,
-    setEditModal,
-    selectedTechId,
-    userInfo,
-    setTechnologyStatus,
-  } = useContext(UserContext);
+  const { isEditModalOpen, setEditModal, selectedTechId, setTechnologyStatus } =
+    useContext(TechContext);
+
+  const { userInfo } = useContext(UserContext);
 
   function toggleModal() {
     setEditModal((prevState) => !prevState);
@@ -37,7 +35,7 @@ export function EditModal() {
       <div
         className={`fixed ${
           isEditModalOpen ? "top-1/2" : "-top-full"
-        } left-1/2 -translate-y-1/2 -translate-x-1/2 p-4 w-fit h-fit bg-base-200 z-50 shadow-lg rounded-md transition-all duration-1000`}
+        } left-1/2 -translate-y-1/2 -translate-x-1/2 p-4 w-5/6 sm:w-fit h-fit bg-base-200 z-50 shadow-lg rounded-md transition-all duration-1000`}
       >
         <span
           className="absolute text-xl z-10 top-3 right-4 text-primary-content cursor-pointer"

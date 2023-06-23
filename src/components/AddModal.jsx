@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { UserContext } from "../routes/RoutesMain";
+import { TechContext } from "../context/TechContext";
 import { InputGroupAddModal } from "./InputGroupAddModal";
 
 export function AddModal() {
-  const { isAddModalOpen, setAddModal } = useContext(UserContext);
+  const { isAddModalOpen, setAddModal } = useContext(TechContext);
 
   function toggleModal() {
     setAddModal((prevState) => !prevState);
@@ -21,7 +21,7 @@ export function AddModal() {
       <div
         className={`fixed ${
           isAddModalOpen ? "top-1/2" : "-top-full"
-        } left-1/2 -translate-y-1/2 -translate-x-1/2 p-4 w-fit h-fit bg-base-200 z-50 shadow-lg rounded-md transition-all duration-1000`}
+        } left-1/2 -translate-y-1/2 -translate-x-1/2 p-4 w-5/6 sm:w-fit h-fit bg-base-200 z-50 shadow-lg rounded-md transition-all duration-1000`}
       >
         <span
           className="absolute text-xl z-10 top-3 right-4 text-primary-content cursor-pointer"

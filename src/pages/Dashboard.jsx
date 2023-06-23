@@ -1,10 +1,11 @@
 import { Navbar } from "../components/Navbar";
-import { USER_STORAGE_KEY, TOKEN_STORAGE_KEY } from "./Home";
+import { TOKEN_STORAGE_KEY } from "./Home";
 import { useEffect, useState, useContext } from "react";
-import { api } from "./SignUp";
+import { api } from "../services/axios";
 import { toast } from "react-toastify";
 import { TechCard } from "../components/TechCard";
-import { UserContext } from "../routes/RoutesMain";
+import { UserContext } from "../context/UserContext";
+import { TechContext } from "../context/TechContext";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { LoadingSpinner } from "../components/LoadingSpinner";
@@ -12,13 +13,9 @@ import { AddModal } from "../components/AddModal";
 import { EditModal } from "../components/EditModal";
 
 export function Dashboard() {
-  const {
-    userInfo,
-    setUserInfo,
-    setAddModal,
-    isAddModalOpen,
-    isEditModalOpen,
-  } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
+  const { setAddModal, isAddModalOpen, isEditModalOpen } =
+    useContext(TechContext);
   const navigate = useNavigate();
 
   useEffect(() => {

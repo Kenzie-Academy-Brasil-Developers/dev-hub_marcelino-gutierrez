@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { api } from "./SignUp.jsx";
+import { api } from "../services/axios.js";
 import { toast } from "react-toastify";
 import { delay } from "./SignUp.jsx";
 import { useForm } from "react-hook-form";
@@ -38,6 +38,7 @@ export function Home() {
       localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(data.token));
       toast.success("Login realizado com sucesso");
       setLoading(true);
+      console.log(data);
       await delay(3200);
       navigate("/dashboard");
     } catch (e) {

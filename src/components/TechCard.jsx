@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { UserContext } from "../routes/RoutesMain";
+import { TechContext } from "../context/TechContext";
 
 export function TechCard({ name, status, id }) {
-  const { setEditModal, setSelectedTechId } = useContext(UserContext);
+  const { setEditModal, setSelectedTechId } = useContext(TechContext);
   function toggleModal(e) {
     e.stopPropagation();
     setEditModal((prevState) => !prevState);
