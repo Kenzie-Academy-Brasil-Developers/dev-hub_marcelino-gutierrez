@@ -13,8 +13,11 @@ export const UserProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
+  const currentPath = window.location.pathname;
+
   useEffect(() => {
     const loadUser = async () => {
+      setLoading(true);
       const token = localStorage.getItem(TOKEN_STORAGE_KEY);
       const userData = JSON.parse(localStorage.getItem(USER_STORAGE_KEY));
       try {
@@ -25,9 +28,9 @@ export const UserProvider = ({ children }) => {
         });
         console.log("hi");
         setUserInfo(data);
+        navigate(currentPath);
       } catch (e) {
         toast.error(e?.data?.response?.message);
-        userLogout();
       } finally {
         setLoading(false);
       }
@@ -56,7 +59,6 @@ export const UserProvider = ({ children }) => {
       const { data } = await api.post("/sessions", formData);
       localStorage.setItem(TOKEN_STORAGE_KEY, data.token);
       localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(data.user));
-      setLoading(true);
       setUserInfo(data.user);
       toast.success("Login realizado com sucesso");
       await delay(3200);
