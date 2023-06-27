@@ -1,19 +1,19 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { TechContext } from "../context/TechContext";
 import { UserContext } from "../context/UserContext";
 import { InputGroupEditModal } from "./InputGroupEditModal";
 
 export function EditModal() {
-  const { isEditModalOpen, setEditModal, selectedTechId, setTechnologyStatus } =
-    useContext(TechContext);
+  const {
+    isEditModalOpen,
+    selectedTechId,
+    setTechnologyStatus,
+    toggleEditModal,
+    setSelectedTech,
+    selectedTech,
+  } = useContext(TechContext);
 
   const { userInfo } = useContext(UserContext);
-
-  function toggleModal() {
-    setEditModal((prevState) => !prevState);
-  }
-
-  const [selectedTech, setSelectedTech] = useState();
 
   useEffect(() => {
     if (userInfo === null) return;
@@ -29,7 +29,7 @@ export function EditModal() {
       open={isEditModalOpen}
       onClick={(e) => {
         if (e.target.tagName !== "DIALOG" || !isEditModalOpen) return;
-        toggleModal();
+        toggleEditModal();
       }}
     >
       <div
@@ -40,7 +40,7 @@ export function EditModal() {
         <span
           className="absolute text-xl z-10 top-3 right-4 text-primary-content cursor-pointer"
           onClick={() => {
-            toggleModal();
+            toggleEditModal();
             setTechnologyStatus(undefined);
           }}
         >

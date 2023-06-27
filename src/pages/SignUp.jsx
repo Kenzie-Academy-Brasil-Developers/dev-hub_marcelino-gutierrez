@@ -1,39 +1,24 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema } from "../schema/signUpSchema";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { api } from "../services/axios";
+import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function SignUp() {
+  const { userSignUp } = useContext(UserContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: zodResolver(signUpSchema),
   });
 
   const loading = useRef();
-
-  const navigate = useNavigate();
-
-  const submit = async (formData) => {
-    try {
-      await api.post("/users", formData);
-      toast.success("Conta criada com sucesso");
-      reset();
-      await delay(3200);
-      navigate("/");
-    } catch (e) {
-      toast.error(e.response.data.message);
-    }
-  };
 
   useEffect(() => {
     const delay = async (ms) =>
@@ -41,7 +26,7 @@ export function SignUp() {
 
     (async () => {
       await delay(100);
-      loading.current.classList.replace("translate-y-3", "translate-y-0");
+      loading?.current?.classList.replace("translate-y-3", "translate-y-0");
     })();
   }, []);
 
@@ -61,7 +46,7 @@ export function SignUp() {
 
         <form
           noValidate
-          onSubmit={handleSubmit(submit)}
+          onSubmit={handleSubmit(userSignUp)}
           className="flex flex-col gap-4"
         >
           <div className="form-control w-full">

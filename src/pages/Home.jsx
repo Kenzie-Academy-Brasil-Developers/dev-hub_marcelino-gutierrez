@@ -1,28 +1,13 @@
-import { useRef, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { api } from "../services/axios.js";
-import { toast } from "react-toastify";
-import { delay } from "./SignUp.jsx";
-import { useForm } from "react-hook-form";
+import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../schema/loginSchema";
-
-export const TOKEN_STORAGE_KEY = "@kenziehub_token";
-export const USER_STORAGE_KEY = "@kenziehub_user";
+import { useForm } from "react-hook-form";
 
 export function Home() {
-  useEffect(() => {
-    localStorage.getItem(TOKEN_STORAGE_KEY) ? navigate("/dashboard") : "";
-
-    (async () => {
-      await delay(100);
-      loading.current.classList.replace("translate-y-3", "translate-y-0");
-    })();
-  }, []);
-
-  const [isLoading, setLoading] = useState(false);
-
-  const loading = useRef();
+  const { userLogin } = useContext(UserContext);
 
   const {
     register,
@@ -32,21 +17,17 @@ export function Home() {
     resolver: zodResolver(loginSchema),
   });
 
-  const submit = async (formData) => {
-    try {
-      const { data } = await api.post("/sessions", formData);
-      localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(data.token));
-      toast.success("Login realizado com sucesso");
-      setLoading(true);
-      console.log(data);
-      await delay(3200);
-      navigate("/dashboard");
-    } catch (e) {
-      toast.error(e.response.data.message);
-    }
-  };
+  const loading = useRef();
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const delay = async (ms) =>
+      new Promise((resolve) => setTimeout(resolve, ms));
+
+    (async () => {
+      await delay(100);
+      loading?.current?.classList.replace("translate-y-3", "translate-y-0");
+    })();
+  }, []);
 
   return (
     <div className="w-5/6 sm:w-[50%] lg:w-[35%] xl:w-[25%] relative min-h-screen bg-base-20 mx-auto flex flex-col gap-5 justify-center items-center">
@@ -58,7 +39,7 @@ export function Home() {
         <h2 className="text-xl font-bold">Login</h2>
         <form
           noValidate
-          onSubmit={handleSubmit(submit)}
+          onSubmit={handleSubmit(userLogin)}
           className="flex flex-col gap-4"
         >
           <div className="form-control w-full">
@@ -99,14 +80,8 @@ export function Home() {
               {errors.password?.message}
             </span>
           </div>
-          <button
-            disabled={isLoading}
-            className="btn btn-primary text-primary-content normal-case"
-          >
-            <span
-              className={`${isLoading ? "" : "hidden"} loading text-sm`}
-            ></span>
-            {isLoading ? "Entrando" : "Entrar"}
+          <button className="btn btn-primary text-primary-content normal-case">
+            Entrar
           </button>
         </form>
         <div className="flex flex-col gap-7">

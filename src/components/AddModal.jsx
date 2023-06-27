@@ -3,11 +3,7 @@ import { TechContext } from "../context/TechContext";
 import { InputGroupAddModal } from "./InputGroupAddModal";
 
 export function AddModal() {
-  const { isAddModalOpen, setAddModal } = useContext(TechContext);
-
-  function toggleModal() {
-    setAddModal((prevState) => !prevState);
-  }
+  const { isAddModalOpen, toggleAddModal } = useContext(TechContext);
 
   return (
     <dialog
@@ -15,7 +11,7 @@ export function AddModal() {
       open={isAddModalOpen}
       onClick={(e) => {
         if (e.target.tagName !== "DIALOG" || !isAddModalOpen) return;
-        toggleModal();
+        toggleAddModal();
       }}
     >
       <div
@@ -25,7 +21,7 @@ export function AddModal() {
       >
         <span
           className="absolute text-xl z-10 top-3 right-4 text-primary-content cursor-pointer"
-          onClick={toggleModal}
+          onClick={toggleAddModal}
         >
           ✕
         </span>

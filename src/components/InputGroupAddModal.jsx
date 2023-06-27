@@ -1,45 +1,13 @@
-import { api } from "../services/axios";
 import { useContext } from "react";
 import { TechContext } from "../context/TechContext";
-import { TOKEN_STORAGE_KEY } from "../pages/Home";
-import { toast } from "react-toastify";
 
 export function InputGroupAddModal() {
-  const { setAddModal } = useContext(TechContext);
-
-  function formSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const techTitle = form.elements.title.value;
-    const techStatus = form.elements.status.value;
-
-    const formData = {
-      title: techTitle,
-      status: techStatus,
-    };
-
-    const accessToken = JSON.parse(localStorage.getItem(TOKEN_STORAGE_KEY));
-    const fetchData = async () => {
-      try {
-        await api.post("/users/techs", formData, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        toast.success("Tecnologia adicionada com sucesso!");
-        setAddModal((prevState) => !prevState);
-      } catch (e) {
-        toast.error(e.response.data.message[0]);
-      }
-    };
-
-    fetchData();
-  }
+  const { newTechAddSubmit } = useContext(TechContext);
 
   return (
     <form
       noValidate
-      onSubmit={formSubmit}
+      onSubmit={newTechAddSubmit}
       className="pt-12 flex flex-col gap-5 w-full sm:w-96"
     >
       <div className="form-control w-full">

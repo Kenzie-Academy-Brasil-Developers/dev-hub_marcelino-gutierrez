@@ -1,70 +1,14 @@
 import { useContext } from "react";
 import { TechContext } from "../context/TechContext";
-import { toast } from "react-toastify";
-import { TOKEN_STORAGE_KEY } from "../pages/Home";
-import { api } from "../services/axios";
 
 export function InputGroupEditModal({ selectedTech }) {
-  const { technologyStatus, setTechnologyStatus, setEditModal } =
+  const { technologyStatus, setTechnologyStatus, techEditSubmit, techDelete } =
     useContext(TechContext);
-
-  function formSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const techStatus = form.elements.status.value;
-
-    if (techStatus === selectedTech.status) {
-      toast.error("Selecione um status diferente");
-      return;
-    }
-
-    const formData = {
-      status: techStatus,
-    };
-
-    try {
-      const accessToken = JSON.parse(localStorage.getItem(TOKEN_STORAGE_KEY));
-      const fetchData = async () => {
-        await api.put(`/users/techs/${selectedTech.id}`, formData, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        await setEditModal((prevState) => !prevState);
-
-        toast.success("Tecnologia editada com sucesso!");
-      };
-      fetchData();
-    } catch (e) {
-      toast.error(e.response.data.message[0]);
-    }
-  }
-
-  function handleDelete(e) {
-    e.preventDefault();
-
-    try {
-      const accessToken = JSON.parse(localStorage.getItem(TOKEN_STORAGE_KEY));
-      const fetchData = async () => {
-        await api.delete(`/users/techs/${selectedTech.id}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        await setEditModal((prevState) => !prevState);
-
-        toast.success("Tecnologia deletada com sucesso!");
-      };
-      fetchData();
-    } catch (e) {
-      toast.error(e.response.data.message);
-    }
-  }
 
   return (
     <form
       noValidate
-      onSubmit={formSubmit}
+      onSubmit={techEditSubmit}
       className="pt-12 flex flex-col gap-5 w-full sm:w-96"
     >
       <div className="form-control w-full">
@@ -113,7 +57,7 @@ export function InputGroupEditModal({ selectedTech }) {
           Salvar Alterações
         </button>
         <button
-          onClick={handleDelete}
+          onClick={techDelete}
           type="button"
           className="btn-secondary normal-case text text-primary-content rounded-sm col-span-2"
         >
