@@ -26,13 +26,13 @@ export const UserProvider = ({ children }) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("hi");
         setUserInfo(data);
         navigate(currentPath);
       } catch (e) {
         toast.error(e?.data?.response?.message);
       } finally {
         setLoading(false);
+        console.log("hi");
       }
     };
     loadUser();

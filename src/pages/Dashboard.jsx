@@ -4,12 +4,11 @@ import { TechCard } from "../components/TechCard";
 import { UserContext } from "../context/UserContext";
 import { TechContext } from "../context/TechContext";
 import { Header } from "../components/Header";
-import { LoadingSpinner } from "../components/LoadingSpinner";
 import { AddModal } from "../components/AddModal";
 import { EditModal } from "../components/EditModal";
 
 export function Dashboard() {
-  const { userInfo, updateUser, isLoading } = useContext(UserContext);
+  const { userInfo, updateUser } = useContext(UserContext);
 
   const { setAddModal, isAddModalOpen, isEditModalOpen, navigate } =
     useContext(TechContext);
@@ -37,15 +36,12 @@ export function Dashboard() {
     <>
       <AddModal />
       <EditModal />
-      <LoadingSpinner isLoading={isLoading} />
       <div className="min-h-screen">
         <Navbar navigate={navigate} />
         <Header userInfo={userInfo} />
         <main
           ref={loading}
-          className={`${
-            isLoading ? "translate-y-5" : ""
-          } w-5/6 translate-y-3 md:w-2/3 lg:w-1/2 mx-auto py-10 flex flex-col gap-5 transition-all duration-1000`}
+          className=" w-5/6 translate-y-3 md:w-2/3 lg:w-1/2 mx-auto py-10 flex flex-col gap-5 transition-all duration-1000"
         >
           <div className="flex justify-between transition">
             <h1 className="text-xl font-semibold">Tecnologias</h1>

@@ -9,18 +9,16 @@ import { PublicRoutes } from "./publicRoutes";
 
 export function RoutesMain() {
   return (
-    <UserProvider>
-      <TechProvider>
-        <Routes>
-          <Route element={<PublicRoutes />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/signup" element={<SignUp />} />
-          </Route>
-          <Route element={<ProtectedRoutes />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
-        </Routes>
-      </TechProvider>
-    </UserProvider>
+    <TechProvider>
+      <Routes>
+        <Route element={<PublicRoutes />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Route>
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+      </Routes>
+    </TechProvider>
   );
 }
