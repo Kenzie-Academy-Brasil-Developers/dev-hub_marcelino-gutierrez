@@ -31,7 +31,7 @@ export function Home() {
 
   return (
     <div className="w-5/6 sm:w-[50%] lg:w-[35%] xl:w-[25%] relative min-h-screen bg-base-20 mx-auto flex flex-col gap-5 justify-center items-center">
-      <h1 className="text-primary font-bold text-2xl">Kenzie Hub</h1>
+      <h1 className="text-primary font-bold text-2xl">Dev Hub</h1>
       <div
         ref={loading}
         className="w-full text-center bg-base-200 px-6 py-10 rounded-sm flex flex-col gap-4 translate-y-3 transition-all duration-700"
