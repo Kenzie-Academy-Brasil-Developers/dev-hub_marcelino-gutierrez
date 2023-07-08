@@ -25,7 +25,7 @@ export const signUpSchema = z
         "A senha deve conter pelo menos uma letra minúscula, uma letra maiúscula e um caractere especial"
       ),
 
-    passwordConfirmation: z.string(),
+    passwordConfirmation: z.string().nonempty("Confirme sua senha!"),
 
     bio: z.string().nonempty("Insira sua bio"),
 
