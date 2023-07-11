@@ -2,7 +2,17 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        "fade-translate": "fade-translate 1000ms",
+      },
+      keyframes: {
+        "fade-translate": {
+          "0%": { opacity: "0", transform: "translateY(2rem)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
