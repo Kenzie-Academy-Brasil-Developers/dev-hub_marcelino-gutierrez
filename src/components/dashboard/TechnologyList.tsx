@@ -24,9 +24,9 @@ export const TechnologyList = () => {
           </button>
         </div>
       </div>
-      <div className="flex flex-col gap-3 bg-base-200 p-4 min-h-[24rem]">
+      <div className="flex flex-col gap-3 bg-base-200 p-4 min-h-[24rem] relative">
         {user?.techs && user.techs.length < 1 ? (
-          <span className="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2 tracking-widest text-gray-400">
+          <span className="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2 tracking-widest text-gray-400 text-center">
             Não há tecnologias cadastradas
           </span>
         ) : (
